@@ -29,12 +29,11 @@ git push "https://mcyster:$PAT@github.com/mcyster/nixos-fox.git"
 ## Generate a PAT
 
 Goto [github tokens](https://github.com/settings/tokens)
-- Fine-grained tokens
-- Geneate new Token
-  - Only selected Repositories
-    - mcyster/nixos-fox
-  - Repository Persmissiones
-    - Actions: read/write
-    - 
-- Copy token put in environment variable
+- Generate New Token
+  - Geneate new token (classic)
+    - Note: nixos-backup
+    - Expiration: 30 days
+    - Selected scopes: repo
+    - Generate TOken
+  - Copy token put in environment variable PAT
 
