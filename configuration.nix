@@ -48,14 +48,18 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
+
+  services.flatpak.enable = true;
+  # Optional but recommended: enable xdg-desktop-portal integration if using GNOME/KDE
+  #services.xdg.portal.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -67,7 +71,7 @@
   };
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -94,6 +98,8 @@
     #  thunderbird
     ];
   };
+
+  networking.firewall.allowedTCPPorts = [ 25565 ];
 
   # Install firefox.
   programs.firefox.enable = true;
@@ -137,5 +143,9 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
+
+  nix = {
+    settings.experimental-features = [ "nix-command" "flakes" ];
+  };
 
 }

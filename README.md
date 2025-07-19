@@ -34,6 +34,6 @@ Goto [github tokens](https://github.com/settings/tokens)
     - Note: nixos-backup
     - Expiration: 30 days
     - Selected scopes: repo
-    - Generate TOken
-  - Copy token put in environment variable PAT
+    - Generate Token
+  - Copy token, put in environment variable PAT
 

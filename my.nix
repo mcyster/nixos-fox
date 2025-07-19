@@ -17,15 +17,11 @@
     google-chrome
     zoom-us
     ngrok
-    #python3
-    #poetry
-    #python310Packages.pyserial
     usbutils
-    screen
+    tmux
     eclipses.eclipse-sdk
     vscode
     miller
-    #pkgs.gnome.gnome-tweaks
     ptyxis
     code-cursor
   ];
@@ -34,9 +30,16 @@
      isNormalUser = true;
      extraGroups = [ "wheel" ];
   };
+  users.extraUsers.leona = {
+     isNormalUser = true;
+     extraGroups = [ "wheel" ];
+  };
   users.extraUsers.bsmith = {
      isNormalUser = true;
      extraGroups = [ "wheel" ];
+  };
+  users.extraUsers.minecraft = {
+     isNormalUser = true;
   };
 
   security.sudo.enable = true;
