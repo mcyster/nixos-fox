@@ -12,19 +12,21 @@
     jq
     zip
     unzip
-    zed-editor
     gimp
     google-chrome
     zoom-us
     ngrok
     usbutils
     tmux
+    miller
+    zed-editor
     eclipses.eclipse-sdk
     vscode
-    miller
-    ptyxis
-    code-cursor
+    docker
   ];
+
+  virtualisation.docker.enable = true;
+  users.users.wal.extraGroups = [ "docker" ];
 
   users.extraUsers.wal = {
      isNormalUser = true;
@@ -33,13 +35,6 @@
   users.extraUsers.leona = {
      isNormalUser = true;
      extraGroups = [ "wheel" ];
-  };
-  users.extraUsers.bsmith = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" ];
-  };
-  users.extraUsers.minecraft = {
-     isNormalUser = true;
   };
 
   security.sudo.enable = true;
