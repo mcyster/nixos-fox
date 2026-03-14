@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -15,23 +15,20 @@
     unzip
     usbutils
 
-    python3 
+    python3
 
     gimp
     google-chrome
+    prismlauncher
 
     ngrok
     tmux
     miller
-    docker
 
     zoom-us
 
     eclipses.eclipse-sdk
 
-    # codex
-
-    # cursor
     cursor-cli
     code-cursor
     ripgrep
@@ -43,16 +40,11 @@
 
   programs.steam.enable = true;
 
-  users.extraUsers.wal = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" ];
-  };
-  users.extraUsers.leona = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" ];
+  users.users.leona = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
   };
 
-  security.sudo.enable = true;
   security.sudo.extraRules = [
     {
       users = [ "wal" ];
@@ -62,6 +54,5 @@
     }
   ];
 
-  environment.variables.EDITOR = pkgs.lib.mkOverride 0 "vim";
-  #environment.variables.BROWSER = pkgs.lib.mkOverride 0 "google-chrome";
+  environment.variables.EDITOR = lib.mkForce "vim";
 }

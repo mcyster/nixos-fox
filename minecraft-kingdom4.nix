@@ -1,15 +1,18 @@
-# /etc/nixos/minecraft-kingdom4.nix
 { config, pkgs, lib, ... }:
 
+let
+  paperJar = "/home/minecraft/kingdom4/paper/paper-1.21.10.jar";
+  serverMemory = { minimum = "2G"; maximum = "4G"; };
+in
 {
   users.groups.minecraft = {};
 
   users.users.minecraft = {
     isNormalUser = lib.mkForce true;
     isSystemUser = lib.mkForce false;
-    home        = lib.mkForce "/home/minecraft";
-    createHome  = lib.mkForce true;
-    group       = lib.mkForce "minecraft";
+    home = lib.mkForce "/home/minecraft";
+    createHome = lib.mkForce true;
+    group = lib.mkForce "minecraft";
   };
 
   systemd.tmpfiles.rules = [
@@ -19,55 +22,42 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    prismlauncher
     minecraft-server
   ];
 
   services.minecraft-server = {
-    enable       = true;
-    eula         = true;
-    declarative  = true;
+    enable = true;
+    eula = true;
+    declarative = true;
     openFirewall = true;
 
-    # still use kingdom4 as the main data dir
     dataDir = "/home/minecraft/kingdom4";
 
-    # package is effectively unused once we override ExecStart,
-    # but we keep it for defaults / future use
     package = pkgs.minecraft-server;
 
-    jvmOpts = "-Xms2G -Xmx6G -XX:+UseG1GC";
-
     serverProperties = {
-      "server-port"           = 25565;
-      "motd"                  = "Kingdom4";
-      "online-mode"           = false; # LAN
-      "level-name"            = "world1";
-      "view-distance"         = 10;
-      "enable-command-block"  = true;
-      "difficulty"            = "normal";
+      "server-port" = 25565;
+      "motd" = "Kingdom4";
+      "online-mode" = false;
+      "level-name" = "world1";
+      "view-distance" = 10;
+      "enable-command-block" = true;
+      "difficulty" = "normal";
     };
   };
 
-  # Override the systemd service to use Paper
   systemd.services.minecraft-server.serviceConfig = {
-    # run the server from the Paper directory
     WorkingDirectory = lib.mkForce "/home/minecraft/kingdom4";
+    ReadWritePaths = lib.mkForce [ "/home/minecraft/kingdom4" ];
+    ProtectHome = lib.mkForce false;
+    DynamicUser = lib.mkForce false;
 
-    # allow writing to the whole kingdom4 tree
-    ReadWritePaths   = lib.mkForce [ "/home/minecraft/kingdom4" ];
-    ProtectHome      = lib.mkForce false;
-    DynamicUser      = lib.mkForce false;
-
-    # Replace ExecStart with our Paper command.
-    # The empty string resets previous ExecStart entries.
     ExecStart = lib.mkForce [
       ""
-      "${pkgs.jre_headless}/bin/java -Xms2G -Xmx4G -jar /home/minecraft/kingdom4/paper/paper-1.21.10.jar nogui"
+      "${pkgs.jre_headless}/bin/java -Xms${serverMemory.minimum} -Xmx${serverMemory.maximum} -jar ${paperJar} nogui"
     ];
   };
 
-  networking.firewall.allowedTCPPorts = [ 25565 ];
   networking.firewall.allowedUDPPorts = [ 24454 ];
 
   systemd.timers.minecraft-server-start = {
@@ -91,11 +81,10 @@
       Persistent = true;
     };
   };
-  
+
   systemd.services.minecraft-server-stop = {
     script = ''
       ${pkgs.systemd}/bin/systemctl stop minecraft-server.service
     '';
   };
 }
-
