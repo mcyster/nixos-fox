@@ -5,6 +5,7 @@
     tcpdump
     acpi
     dmidecode
+    pciutils
     lshw
     lsof
     vim
@@ -12,21 +13,35 @@
     jq
     zip
     unzip
+    usbutils
+
+    python3 
+
     gimp
     google-chrome
-    zoom-us
+
     ngrok
-    usbutils
     tmux
     miller
-    zed-editor
-    eclipses.eclipse-sdk
-    vscode
     docker
+
+    zoom-us
+
+    eclipses.eclipse-sdk
+
+    # codex
+
+    # cursor
+    cursor-cli
+    code-cursor
+    ripgrep
+    mdcat
   ];
 
   virtualisation.docker.enable = true;
   users.users.wal.extraGroups = [ "docker" ];
+
+  programs.steam.enable = true;
 
   users.extraUsers.wal = {
      isNormalUser = true;
