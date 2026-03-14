@@ -15,6 +15,8 @@
     unzip
     usbutils
 
+    direnv
+
     python3
 
     gimp
@@ -25,15 +27,20 @@
     tmux
     miller
 
-    zoom-us
-
     eclipses.eclipse-sdk
 
     cursor-cli
     code-cursor
     ripgrep
     mdcat
+
+    zoom-us
   ];
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 
   virtualisation.docker.enable = true;
   users.users.wal.extraGroups = [ "docker" ];
