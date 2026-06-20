@@ -16,6 +16,7 @@
     usbutils
 
     direnv
+    opencode
 
     python3
 
