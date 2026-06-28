@@ -36,6 +36,11 @@
     mdcat
 
     zoom-us
+
+    nvd
+    nix-index
+    comma
+    btop
   ];
 
   programs.nh = {
@@ -70,6 +75,10 @@
       ];
     }
   ];
+
+  services.smartd.enable = true;
+
+  services.tailscale.enable = true;
 
   environment.variables.EDITOR = lib.mkForce "vim";
 }
