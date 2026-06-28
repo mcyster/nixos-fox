@@ -41,12 +41,6 @@
     pulse.enable = true;
   };
 
-  users.users.wal = {
-    isNormalUser = true;
-    description = "wal";
-    extraGroups = [ "networkmanager" "wheel" ];
-  };
-
   programs.firefox.enable = true;
 
   nixpkgs.config.allowUnfree = true;

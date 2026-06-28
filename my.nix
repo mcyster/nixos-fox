@@ -44,7 +44,11 @@
   };
 
   virtualisation.docker.enable = true;
-  users.users.wal.extraGroups = [ "docker" ];
+  users.users.wal = {
+    isNormalUser = true;
+    description = "wal";
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
+  };
 
   programs.steam.enable = true;
 
