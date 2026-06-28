@@ -6,13 +6,17 @@ This is the `/etc/nixos` directory on `fox`, managed as a Nix flake.
 ## Rebuild
 
 ```
+# First rebuild on a fresh clone
 sudo nixos-rebuild switch --flake /etc/nixos
+
+# Subsequent rebuilds
+nh os switch
 ```
 
 ## Full Upgrade
 
 ```
-nix flake update --flake /etc/nixos && sudo nixos-rebuild switch --flake /etc/nixos
+nh os switch --update
 ```
 
 ## Restore Backup

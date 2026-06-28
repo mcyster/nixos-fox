@@ -38,6 +38,11 @@
     zoom-us
   ];
 
+  programs.nh = {
+    enable = true;
+    flake = "/etc/nixos";
+  };
+
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
